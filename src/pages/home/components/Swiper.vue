@@ -1,7 +1,7 @@
 <template>
     <div class="wrapper">
-      <swiper :options="swiperOption">
-      <swiper-slide v-for="item of swiperList" :key="item.id">
+      <swiper :options="swiperOption" v-if="showSwiper">
+      <swiper-slide v-for="item of list" :key="item.id">
         <img class="swiper-img" :src="item.imgUrl"  />
       </swiper-slide>
       <div class="swiper-pagination"  slot="pagination"></div>
@@ -12,6 +12,9 @@
 <script>
 export default{
   name: 'HomeSwiper',
+  props: {
+    list: Array
+  },
   data () {
     return {
       notNextTick: true,
@@ -19,14 +22,13 @@ export default{
         // 未显示出来小圆点
         pagination: '.swiper-pagination',
         loop: true
-      },
-      swiperList: [{
-        id: '0001',
-        imgUrl: 'http://img1.qunarzz.com/piao/fusion/1804/d5/fb4a5c81cd87a002.jpg_890x330_901edbfc.jpg'
-      }, {
-        id: '0002',
-        imgUrl: 'http://img1.qunarzz.com/piao/fusion/1805/de/47d98076af29f202.jpg_750x200_7888b7c9.jpg'
-      }]
+      }
+    }
+  },
+  // 定义轮播图显示在第一页上
+  computed: {
+    showSwiper () {
+      return this.list.length
     }
   }
 }
